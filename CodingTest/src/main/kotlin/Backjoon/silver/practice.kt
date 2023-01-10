@@ -1,39 +1,48 @@
 import java.io.*
+import java.lang.StringBuilder
 
 fun main(args: Array<String>) {
     var br = BufferedReader(InputStreamReader(System.`in`))
-    var num = br.readLine().toInt()
+    var count = br.readLine().toInt()
+    var sb = StringBuilder()
 
-    var count = 1
-    var plusCount = 1
+    for (i in 0 until count) {
+        var (h, w, n) = br.readLine().split(" ").map { it.toInt() }
 
+        var a = n / h
+        var b = n % h
 
-    if (num != 1){
-        while (count < num) {
-            count += plusCount + 1
-            plusCount++
+        var str = ""
 
+        if(b == 0){
+            if(a < 10){
+                str = "0$a"
+            }else{
+                str = "$a"
+            }
+        }else{
+            if((a + 1) < 10){
+                str = "0${a + 1}"
+            }else{
+                str = "${a + 1}"
+            }
         }
+
+        if(b == 0){
+            b = h
+        }
+
+        if(h == 1){
+            b = 1
+            if(n < 10){
+                str = "0$n"
+            }else{
+                str = "$n"
+            }
+        }
+
+        sb.append("$b$str\n")
     }
 
-    var temp = num - (count - plusCount)  - 1
-
-    var a = 0
-    var b = 0
-
-    when(plusCount % 2){
-        // 짝수
-        0 -> {
-            a = 1 + temp
-            b = plusCount - temp
-        }
-
-        // 홀수
-        1-> {
-            a = plusCount - temp
-            b = 1 + temp
-        }
-    }
-
-    println("$a/$b")
+    println(sb)
 }
