@@ -3,46 +3,24 @@ import java.lang.StringBuilder
 
 fun main(args: Array<String>) {
     var br = BufferedReader(InputStreamReader(System.`in`))
-    var count = br.readLine().toInt()
-    var sb = StringBuilder()
+    var num = br.readLine().toInt()
 
-    for (i in 0 until count) {
-        var (h, w, n) = br.readLine().split(" ").map { it.toInt() }
+    for(i in 0 until num){
+        var a = br.readLine().toInt()
+        var b = br.readLine().toInt()
 
-        var a = n / h
-        var b = n % h
+        a++
 
-        var str = ""
-
-        if(b == 0){
-            if(a < 10){
-                str = "0$a"
-            }else{
-                str = "$a"
-            }
-        }else{
-            if((a + 1) < 10){
-                str = "0${a + 1}"
-            }else{
-                str = "${a + 1}"
-            }
-        }
-
-        if(b == 0){
-            b = h
-        }
-
-        if(h == 1){
-            b = 1
-            if(n < 10){
-                str = "0$n"
-            }else{
-                str = "$n"
-            }
-        }
-
-        sb.append("$b$str\n")
+        println(fibo(a, b))
     }
 
-    println(sb)
+}
+
+fun fibo(a: Int, b: Int): Int{
+    return if(b == 1)
+        1
+    else if(a == 1)
+        b
+    else
+        fibo(a, b - 1) + fibo(a - 1, b)
 }
