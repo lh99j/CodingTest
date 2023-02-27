@@ -25,16 +25,20 @@ import kotlin.math.max
 
 
 fun main(args: Array<String>) {
+    // numArr  :  10   -4   3     1    5    6   -35   12  21   -1
+    // dpArray :  10    6   9    10   15   21   -14   12  33   32
+    //   max   :  10   10   10   10   15   21    21   21  33   32
+
     val br = BufferedReader(InputStreamReader(System.`in`))
-    val num = br.readLine().toInt()
+    val size = br.readLine().toInt()
     var numArray = br.readLine().split(" ").map { it.toInt() }
 
-    var dpArray = MutableList<Int>(num){ 0 }
+    var dpArray = MutableList<Int>(size){ 0 }
 
     dpArray[0] = numArray[0]
     var max = dpArray[0]
 
-    for(i in 1 until num){
+    for(i in 1 until size){
          dpArray[i] = max(dpArray[i - 1] + numArray[i], numArray[i])
          max = max(dpArray[i], max)
     }
