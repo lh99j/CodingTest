@@ -23,7 +23,7 @@ fun main(args: Array<String>){
 
     visited = MutableList(n){ 0 }
 
-    bfs(bfsMat, r - 1)
+    bfs(bfsMat,  r - 1)
 
     visited.forEach {
         println(it)
@@ -31,7 +31,6 @@ fun main(args: Array<String>){
 }
 
 private fun bfs(bfsMat: Array<MutableList<Int>>, r: Int){
-
     var q: Queue<Int> = LinkedList<Int>()
 
     q.clear()
