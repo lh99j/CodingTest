@@ -30,7 +30,7 @@ fun main(args: Array<String>){
     }
 }
 
-fun bfs(bfsMat: Array<MutableList<Int>>, r: Int){
+private fun bfs(bfsMat: Array<MutableList<Int>>, r: Int){
 
     var q: Queue<Int> = LinkedList<Int>()
 
