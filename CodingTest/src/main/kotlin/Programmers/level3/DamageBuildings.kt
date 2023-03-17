@@ -1,6 +1,37 @@
 import java.lang.StringBuilder
 import java.util.*
 
+/*
+    (0, 0) 부터 (2, 2) 까지 5만큼 영향을 주고 싶다면 ?
+    [n, 0, 0, -n]
+    [0, 0, 0, 0]
+    [0, 0, 0, 0]
+    [-n, 0, 0, n]
+
+
+    [5, 0, 0, -5]
+    [0, 0, 0, 0]
+    [0, 0, 0, 0]
+    [-5, 0, 0, 5]
+
+
+    행 누적합
+    [5, 5, 5, 0]
+    [0, 0, 0, 0]
+    [0, 0, 0, 0]
+    [-5, -5, -5, 0]
+
+    열 누적합
+    [5, 5, 5, 0]
+    [5, 5, 5, 0]
+    [5, 5, 5, 0]
+    [0, 0, 0, 0]
+
+    누적합을 쓴다면?
+    -> 브루트 포스를 사용하면 시간복잡도가 O(N * M * K) 이 되는데
+    -> 누접합을 씀으로 써  O(K + N * M)의 시간복잡도
+ */
+
 
 class DamageBuildings {
     fun solution(board: Array<IntArray>, skill: Array<IntArray>): Int {
@@ -32,7 +63,6 @@ class DamageBuildings {
             }
         }
 
-
         for(i in 1..board.size){
             var sum = 0
             for(j in 1..board[0].size){
@@ -40,15 +70,6 @@ class DamageBuildings {
                 damageBoard[i][j] = sum
             }
         }
-
-//        println("x")
-//        for(i in 1..board.size){
-//            for(j in 1..board[0].size){
-//                print("${damageBoard[i][j]} ")
-//            }
-//            println()
-//        }
-
         for(i in 1..board[0].size){
             var sum = 0
             for(j in 1..board.size){
@@ -56,16 +77,6 @@ class DamageBuildings {
                 damageBoard[j][i] = sum
             }
         }
-
-//        println("y")
-//        for(i in 1..board.size){
-//            for(j in 1..board[0].size){
-//                print("${damageBoard[i][j]} ")
-//            }
-//            println()
-//        }
-
-
 
         for(i in 1..board.size){
             for(j in 1..board[0].size){
