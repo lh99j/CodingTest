@@ -4,7 +4,7 @@ import java.util.*
 private var dx = intArrayOf(0, -1, 0, 1)
 private var dy = intArrayOf(1, 0, -1, 0)
 
-private data class Dot(var x: Int, var y: Int)
+data class Dot(var x: Int, var y: Int)
 
 fun main(args: Array<String>) {
     val br = BufferedReader(InputStreamReader(System.`in`))
