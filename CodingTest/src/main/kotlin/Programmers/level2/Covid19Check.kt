@@ -10,13 +10,13 @@ class Covid19Check {
         var answer: MutableList<Int> = mutableListOf()
 
         for(i in places.indices){
-            answer.add(seperateArrayAndBfs(places[i]))
+            answer.add(separateArrayAndBfs(places[i]))
         }
 
         return answer
     }
 
-    fun seperateArrayAndBfs(strArr: Array<String>): Int{
+    private fun separateArrayAndBfs(strArr: Array<String>): Int{
         var classRoom = Array(5){Array(5) { 'a' } }
 
         for(i in 0 until 5){
