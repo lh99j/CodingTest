@@ -53,8 +53,8 @@ private fun bfs(map: Array<MutableList<Int>>): Int {
                 return visited[temp.x][temp.y][temp.w] + 1
             }
 
-            if (nx in 0 until map.size && ny in 0 until map[0].size) {
-                if(map[nx][ny] == 0 && visited[nx][ny][temp.w] == 0){
+            if (nx in 0 until map.size && ny in 0 until map[0].size && visited[nx][ny][temp.w] == 0) {
+                if(map[nx][ny] == 0){
                     visited[nx][ny][temp.w] = visited[temp.x][temp.y][temp.w] + 1
                     q.offer(Dot2206(nx, ny, temp.w))
                 }else if(map[nx][ny] == 1 && temp.w == 0){
