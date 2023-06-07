@@ -16,8 +16,8 @@ class QueueSumEqual {
             q2.offer(queue2[i])
         }
 
-        var q1Sum = q1.sum()
-        var q2Sum = q2.sum()
+        var q1Sum : Long = q1.sum().toLong()
+        var q2Sum: Long = q2.sum().toLong()
 
         while(q1Sum != q2Sum){
             answer ++
