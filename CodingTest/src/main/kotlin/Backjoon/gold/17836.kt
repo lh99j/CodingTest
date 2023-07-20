@@ -62,19 +62,10 @@ private fun bfs(maze: Array<MutableList<Int>>, time: Int): Int {
                     swordTemp = (nx - swordX) + (ny - swordY)
 
                     if (nx == maze.size - 1 && ny == maze[0].size - 1) {
-                        println("nx : $nx ny: $ny")
-                        println("sword X Y : $swordX $swordY")
-                        println("count : $count")
-                        println("swrod Distance : $swordDistance")
-
                         if (swordX != -1 && swordY != -1 && count <= time) {
-
-
-                            println("answer : $temp $distance")
 
                             return min(swordTemp + swordDistance + 1, distance + 1)
                         } else if (count <= time && swordX == -1 && swordY == -1) {
-                            println("answer : $distance")
 
                             return distance + 1
                         }
@@ -96,11 +87,6 @@ private fun bfs(maze: Array<MutableList<Int>>, time: Int): Int {
     var answer = swordTemp + swordDistance + 1
 
     if(swordX != -1 && swordY != -1 && answer <= time){
-        println("answer : $answer")
-        println("swordTemp : $swordTemp")
-        println("swordDistance $swordDistance")
-        println("swordX : $swordX swordY : $swordY")
-        println("map.size : ${maze.size - 1} maze[0].size : ${maze[0].size - 1}")
         return answer
     }
 
