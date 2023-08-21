@@ -12,11 +12,8 @@ class NumberGame {
             }
         }
 
-        var turn = m - p - 1
-
-        if(turn < 0){
-            turn = m - 1
-        }
+        var turn = p - 1
+        
         for (i in turn..arr.size step (m)) {
             answer += arr[i]
 
