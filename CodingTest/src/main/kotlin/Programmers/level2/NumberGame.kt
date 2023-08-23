@@ -4,25 +4,21 @@ class NumberGame {
         var arr = mutableListOf<String>()
 
         arr.add("0")
+
         for (i in 1..t * m) {
-            if(n != 10) {
-                arr.addAll(makeArray(i, n))
-            }else if(n == 10){
-                arr.addAll(makeArrayByOctal(i))
-            }
+            arr.addAll(makeArray(i, n))
         }
 
         var turn = p - 1
-        
+
         for (i in turn..arr.size step (m)) {
             answer += arr[i]
 
-            if(answer.length == t){
+            if (answer.length == t) {
                 break
             }
         }
 
-//        println(arr.toList().toString())
         return answer
     }
 
@@ -33,70 +29,44 @@ class NumberGame {
         while (true) {
             var tmp = num % n
             num /= n
-            if (tmp == 10) {
-                arr.add("A")
-            } else if (tmp == 11) {
-                arr.add("B")
-            } else if (tmp == 12) {
-                arr.add("C")
-            } else if (tmp == 13) {
-                arr.add("D")
-            } else if (tmp == 14) {
-                arr.add("E")
-            } else if (tmp == 15) {
-                arr.add("F")
-            } else if (tmp < 10) {
-                arr.add(tmp.toString())
-            }
+
+            arr.add(pasingNumber(tmp, n))
 
             if (num < n) {
-
-                if (num == 10) {
-                    arr.add("A")
-                } else if (num == 11) {
-                    arr.add("B")
-                } else if (num == 12) {
-                    arr.add("C")
-                } else if (num == 13) {
-                    arr.add("D")
-                } else if (num == 14) {
-                    arr.add("E")
-                } else if (num == 15) {
-                    arr.add("F")
-                } else if (num < 10) {
-                    arr.add(num.toString())
-                }
-
+                arr.add(pasingNumber(num, n))
                 break
             }
         }
 
         arr.reverse()
 
-        if(arr[0] == "0"){
+        if (arr[0] == "0") {
             arr.removeAt(0)
         }
         return arr
     }
 
-    fun makeArrayByOctal(number: Int): MutableList<String>{
-        var num = number
-        var arr = mutableListOf<String>()
+    fun pasingNumber(number: Int, n: Int): String {
 
-        while(true){
-            var tmp = num % 10
-            arr.add(tmp.toString())
-            num /= 10
-
-            if(num < 10){
-                arr.add(num.toString())
-                break
+        if (n != 10) {
+            if (number == 10) {
+                return "A"
+            } else if (number == 11) {
+                return "B"
+            } else if (number == 12) {
+                return "C"
+            } else if (number == 13) {
+                return "D"
+            } else if (number == 14) {
+                return "E"
+            } else if (number == 15) {
+                return "F"
+            } else if (number < 10) {
+                return number.toString()
             }
         }
 
-        arr.reverse()
-
-        return arr
+        return number.toString()
     }
 }
 
