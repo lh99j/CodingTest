@@ -28,17 +28,31 @@ fun main(args: Array<String>){
     }
 }
 
+//private fun dfs(tree: Array<MutableList<Int>>, node: Int, cnt: Int){
+//    visited[node] = 1
+//
+//    var isLeaf = true
+//
+//    tree[node].forEach {
+//        if(visited[it] != 1){
+//            dfs(tree, it, cnt + 1)
+//            isLeaf = false
+//        }
+//    }
+//
+//    if(isLeaf) total += cnt
+//}
+
 private fun dfs(tree: Array<MutableList<Int>>, node: Int, cnt: Int){
     visited[node] = 1
-
-    var isLeaf = true
 
     tree[node].forEach {
         if(visited[it] != 1){
             dfs(tree, it, cnt + 1)
-            isLeaf = false
         }
     }
 
-    if(isLeaf) total += cnt
+    if(node != 1 && tree[node].size == 1){
+        total += cnt
+    }
 }
