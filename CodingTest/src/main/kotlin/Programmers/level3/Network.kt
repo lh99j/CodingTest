@@ -1,50 +1,35 @@
 import java.util.*
 
 class Network {
-    private lateinit var visited: Array<Int>
 
     fun solution(n: Int, computers: Array<IntArray>): Int {
         var answer = 0
-        visited = Array(n + 1) { 0 }
-        var adj = Array<MutableList<Int>>(n + 1) { mutableListOf() }
+        var visited = Array<Int>(n){ 0 }
+        var q: Queue<Int> = LinkedList()
 
-        adj[0].add(0)
-
-        for (i in 0 until n) {
-            for (j in i + 1 until n) {
-                if (computers[i][j] == 1) {
-                    adj[i + 1].add(j + 1)
-                    adj[j + 1].add(i + 1)
-                }
-            }
-        }
-
-        for (i in 1 until n + 1) {
-            if (visited[i] == 0) {
-                bfs(adj, i)
+        for(i in 0 until n){
+            if(visited[i] == 0){
+                q.offer(i)
+                visited[i] = 1
                 answer++
-            }
-        }
 
-        return answer - 1
-    }
+                while(q.isNotEmpty()){
+                    val node = q.poll()
 
-    fun bfs(adj: Array<MutableList<Int>>, node: Int) {
-        val q: Queue<Int> = LinkedList()
+                    for(j in 0 until n){
+                        if(node == j)
+                            continue
 
-        q.offer(node)
-        visited[node] = 1
-        while (q.isNotEmpty()) {
-            val temp = q.poll()
-
-            adj[temp].forEach {
-                if (visited[it] == 0) {
-                    q.offer(it)
-                    visited[it] = 1
+                        if(visited[j] == 0 && computers[node][j] == 1){
+                            q.offer(j)
+                            visited[j] = 1
+                        }
+                    }
                 }
             }
         }
-        
+
+        return answer
     }
 }
 
