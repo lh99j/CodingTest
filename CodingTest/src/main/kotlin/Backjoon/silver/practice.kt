@@ -1,32 +1,18 @@
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.lang.IndexOutOfBoundsException
-import kotlin.math.max
 
-fun main(args: Array<String>) {
+fun main(){
     val br = BufferedReader(InputStreamReader(System.`in`))
+    val cnt = br.readLine().toInt()
+    var arr = mutableListOf<Int>()
 
-    var nums = Array<MutableList<String>>(5){ mutableListOf() }
-    var str = ""
-    var maxSize = 0
-
-    for(i in 0 until 5){
-        var str = br.readLine().toString()
-        maxSize = max(maxSize, str.length)
-
-        for(j in str.indices){
-            nums[i].add(str[j].toString())
-        }
-
+    repeat(cnt){
+        arr.add(br.readLine().toInt())
     }
 
-    for(i in 0 until maxSize){
-        for(j in 0 until 5){
-            if(nums[j].getOrNull(i) != null){
-                str += nums[j][i]
-            }
-        }
-    }
+    arr.sortDescending()
 
-    println(str)
+    for(i in arr.indices){
+        println(arr[i])
+    }
 }
