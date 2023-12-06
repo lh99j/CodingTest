@@ -11,7 +11,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
 private fun back(depth: Int, cnt: Int, str: String) {
     if (depth == cnt) {
         println(str)
-        exitProcess(0)
+        return
     }
 
     for (i in 1..3) {
@@ -22,12 +22,13 @@ private fun back(depth: Int, cnt: Int, str: String) {
     }
 }
 
+// 1 2 3 4 5 6
 private fun isValid(str: String): Boolean {
     val len = str.length
-    for(i in 1..len/2){
+    for (i in 1..len / 2) {
         val right = str.substring(len - i, len)
-        val left = str.substring(len - i - i, len - i)
-        if(left == right)
+        val left = str.substring(len - 2 * i, len - i)
+        if (left == right)
             return false
     }
     return true
