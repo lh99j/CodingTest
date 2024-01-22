@@ -5,24 +5,25 @@ import java.util.PriorityQueue
 fun main() {
     val br = BufferedReader(InputStreamReader(System.`in`))
     val cnt = br.readLine().toInt()
-
-    var check = PriorityQueue<Int>()
-    var ans = 0
+    var tL = mutableListOf<Pair<Int, Int>>()
+    var pQ = PriorityQueue<Int>()
 
     repeat(cnt) {
         val (x, y) = br.readLine().split(" ").map { it.toInt() }
+        tL.add(x to y)
+    }
 
-        if (check.isEmpty()) {
-            ans++
-            check.add(y)
-        } else {
-            if (check.any { it <= x }) {
-                ans++
-                check.add(y)
+    tL.sortedWith(compareBy({ it.first }, { it.second })).forEach {
+        if(pQ.isEmpty()){
+            pQ.offer(it.second)
+        }else{
+            val p = pQ.peek()
+            if(p <= it.first){
+                pQ.poll()
             }
+            pQ.offer(it.second)
         }
     }
 
-    println(ans)
-
+    println(pQ.size)
 }
