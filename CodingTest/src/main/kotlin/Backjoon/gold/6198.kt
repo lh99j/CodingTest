@@ -4,26 +4,26 @@ import java.util.*
 
 fun main() {
     val br = BufferedReader(InputStreamReader(System.`in`))
-    var size = br.readLine().toInt()
-    var arr = mutableListOf<Long>()
-    repeat(size){
-        arr.add(br.readLine().toLong())
+    val cnt = br.readLine().toInt()
+    val input = mutableListOf<Long>()
+    val ans = Array<Long>(cnt) { 0 }
+    val s = Stack<Long>()
+
+    repeat(cnt) {
+        input.add(br.readLine().toLong())
     }
 
-    var ans = Array<Long>(arr.size) { 0 }
-
-    var s = Stack<Long>()
-    for (i in arr.indices) {
-        while (s.isNotEmpty() && arr[s.peek().toInt()] <= arr[i]) {
+    for (i in 0 until cnt) {
+        while (s.isNotEmpty() && input[s.peek().toInt()] <= input[i]) {
             val p = s.pop()
-            ans[p.toInt()] = i.toLong() - p - 1
+            ans[p.toInt()] = i - p - 1
         }
         s.push(i.toLong())
     }
 
-    while (s.isNotEmpty()) {
+    while(s.isNotEmpty()){
         val p = s.pop()
-        ans[p.toInt()] = arr.size - p - 1
+        ans[p.toInt()] = cnt - p - 1
     }
 
     println(ans.sum())
