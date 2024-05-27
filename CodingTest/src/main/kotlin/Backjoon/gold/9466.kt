@@ -29,12 +29,9 @@ fun main() {
         }
 
         sb.append(ans).append("\n")
-
-//        bw.write("$ans\n")
+        
     }
 
-//    bw.flush()
-//    bw.close()
     println(sb)
 }
 
@@ -76,10 +73,8 @@ private fun bfs(inputs: List<Int>, check: HashSet<Int>, start: Int): Int {
         var c = start
 
         var t = 0
-//        println("cycle: $cycle, c: $c")
 
         while(c != cycle){
-//            println("cycle : $cycle, c : $c")
             c = inputs[c] - 1
             t++
         }
