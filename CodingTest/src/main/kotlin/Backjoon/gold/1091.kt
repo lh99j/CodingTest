@@ -7,7 +7,6 @@ fun main() {
     var P = br.readLine().split(" ").map { it.toInt() }
     val S = br.readLine().split(" ").map { it.toInt() }
 
-    var cards = Array(size) { it }
     var ans = 0
 
     while (ans < 200000) {
