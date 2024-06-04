@@ -57,12 +57,6 @@ fun main() {
 
 
     for (i in 0 until M) {
-//        robotPosition.forEach {
-//            println(it.joinToString(" "))
-//        }
-//        println("${robots[0]}, $error")
-//        println()
-
         val st = StringTokenizer(br.readLine())
         val robotNum = st.nextToken().toInt() - 1
         val order = st.nextToken()
