@@ -9,7 +9,7 @@ private var max = 0
 fun main() {
     val br = BufferedReader(InputStreamReader(System.`in`))
     val fishes = Array(17) { Triple(0, 0, 0) } // x, y, direction
-    val map = Array(4) { Array(4) { Pair(0, 0) } } //value to direction
+    val map = Array(4) { IntArray(4) { 0 } } //value
 
     repeat(4) { x ->
         val st = StringTokenizer(br.readLine())
@@ -19,16 +19,14 @@ fun main() {
             var d = st.nextToken().toInt() - 1
 
             fishes[value] = Triple(x, y, d)
-            map[x][y] = value to d
+            map[x][y] = value
         }
     }
 
-
-
-    var (x, y, d) = Triple(0, 0, map[0][0].second)
-    val eat = map[0][0].first
-    fishes[map[0][0].first] = Triple(-1, -1, -1)
-    map[0][0] = 0 to 0
+    var (x, y, d) = Triple(0, 0, fishes[map[0][0]].third)
+    val eat = map[0][0]
+    fishes[map[0][0]] = Triple(-1, -1, -1)
+    map[0][0] = 0
 
     fishMove(0 to 0, map, fishes)
 
@@ -36,7 +34,7 @@ fun main() {
         x += dx[d]
         y += dy[d]
 
-        if(!validPosition(x, y))
+        if (!validPosition(x, y))
             break
 
         back(Triple(x, y, d), map, fishes, eat)
@@ -46,7 +44,7 @@ fun main() {
     println(max)
 }
 
-private fun fishMove(shark: Pair<Int, Int>, map: Array<Array<Pair<Int, Int>>>, fishes: Array<Triple<Int, Int, Int>>) {
+private fun fishMove(shark: Pair<Int, Int>, map: Array<IntArray>, fishes: Array<Triple<Int, Int, Int>>) {
     for (i in 1..16) {
         if (fishes[i].first == -1)
             continue
@@ -66,26 +64,23 @@ private fun fishMove(shark: Pair<Int, Int>, map: Array<Array<Pair<Int, Int>>>, f
         }
 
         if (changable) {
-            map[x][y] = map[x][y].first to d
-            fishes[map[x][y].first] = Triple(x, y, d)
+            fishes[map[x][y]] = Triple(x, y, d)
             swap(x to y, nx to ny, map, fishes)
         }
     }
 }
 
-private fun rotation(d: Int) = if (d + 1 > 7) 0 else d + 1
-private fun validPosition(x: Int, y: Int) = x in range && y in range
 private fun swap(
     a: Pair<Int, Int>,
     b: Pair<Int, Int>,
-    map: Array<Array<Pair<Int, Int>>>,
+    map: Array<IntArray>,
     fishes: Array<Triple<Int, Int, Int>>
 ) {
     val (x, y) = a //current
     val (nx, ny) = b // next
 
-    fishes[map[x][y].first] = Triple(nx, ny, map[x][y].second)
-    fishes[map[nx][ny].first] = Triple(x, y, map[nx][ny].second)
+    fishes[map[x][y]] = Triple(nx, ny, fishes[map[x][y]].third)
+    fishes[map[nx][ny]] = Triple(x, y, fishes[map[nx][ny]].third)
 
     val temp = map[nx][ny]
     map[nx][ny] = map[x][y]
@@ -94,7 +89,7 @@ private fun swap(
 
 private fun back(
     shark: Triple<Int, Int, Int>,
-    originMap: Array<Array<Pair<Int, Int>>>,
+    originMap: Array<IntArray>,
     originFishes: Array<Triple<Int, Int, Int>>,
     eat: Int
 ) {
@@ -107,10 +102,10 @@ private fun back(
     val map = copyMap(originMap)
     val fishes = originFishes.copyOf()
 
-    fishes[map[x][y].first] = Triple(-1, -1, -1)
-    d = map[x][y].second
-    var value = eat + map[x][y].first
-    map[x][y] = 0 to 0
+    d = fishes[map[x][y]].third
+    var value = eat + map[x][y]
+    fishes[map[x][y]] = Triple(-1, -1, -1)
+    map[x][y] = 0
 
     fishMove(x to y, map, fishes)
 
@@ -118,7 +113,7 @@ private fun back(
         x += dx[d]
         y += dy[d]
 
-        if (validPosition(x, y) && map[x][y].first == 0) {
+        if (validPosition(x, y) && map[x][y] == 0) {
             continue
         }
 
@@ -128,4 +123,6 @@ private fun back(
     }
 }
 
-private fun copyMap(map: Array<Array<Pair<Int, Int>>>) = Array(map.size) { idx -> map[idx].copyOf() }
+private fun copyMap(map: Array<IntArray>) = Array(map.size) { idx -> map[idx].copyOf() }
+private fun rotation(d: Int) = if (d + 1 > 7) 0 else d + 1
+private fun validPosition(x: Int, y: Int) = x in range && y in range
