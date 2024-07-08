@@ -1,69 +1,44 @@
 class MenuRenewal {
-    private val alpha = Array<String>(26) { (it + 65).toChar().toString() }
-    private lateinit var orders: Array<String>
-    private val temp = mutableListOf<String>()
-    private var total = -1
+    private val map = mutableMapOf<String, Int>()
 
-    fun solution(o: Array<String>, course: IntArray): List<String> {
-        var answer = mutableListOf<String>()
-        orders = o
+    fun solution(orders: Array<String>, course: IntArray): List<String> {
+        val answer = mutableListOf<String>()
+        course.forEach { c ->
+            map.clear()
 
-        course.forEach{
-            total = -1
-            temp.clear()
+            orders.forEach { order ->
+                back(0, c, order.chunked(1).sorted(), "")
+            }
 
-            back(0, it, 0, "")
-
-            answer.addAll(temp)
+            val max = map.map { it.value }.maxOrNull() ?: -1
+            if (max > 1) {
+                for ((key, value) in map.entries) {
+                    if (value == max) {
+                        answer.add(key)
+                    }
+                }
+            }
         }
 
         return answer.sorted()
     }
 
-    private fun back(cur: Int, depth: Int, start: Int,  str: String){
-        if(depth == cur) {
-            check(str)
-
+    private fun back(cur: Int, depth: Int, order: List<String>, str: String) {
+        if (str.length == depth) {
+            map[str] = map.getOrDefault(str, 0) + 1
             return
         }
 
-        for(i in start until alpha.size){
-            back(cur + 1, depth, i + 1, str + alpha[i])
-        }
-    }
-
-    private fun check(str: String){
-
-        var cnt = 0
-
-        for(i in orders.indices){
-            if(orders[i].length < str.length){
-                continue
-            }
-
-            var tc = 0
-
-            for(c in str){
-                if(c in orders[i]){
-                    tc++
-                }
-            }
-
-            if(tc == str.length){
-                cnt++
-            }
-        }
-
-        if(cnt <= 1){
+        if (cur >= order.size) {
             return
         }
 
-        if(cnt > total){
-            temp.clear()
-            temp.add(str)
-            total = cnt
-        }else if(cnt == total){
-            temp.add(str)
-        }
+        back(cur + 1, depth, order, str)
+        back(cur + 1, depth, order, str + order[cur])
     }
+}
+
+fun main() {
+    val mr = MenuRenewal()
+    println(mr.solution(arrayOf("ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"), intArrayOf(2, 3, 4)))
 }
