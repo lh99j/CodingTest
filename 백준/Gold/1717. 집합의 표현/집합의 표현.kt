@@ -1,21 +1,25 @@
-private lateinit var graph: IntArray
+import java.util.StringTokenizer
+
+private var graph = intArrayOf()
 
 fun main() {
     val br = System.`in`.bufferedReader()
-    val (n, m) = br.readLine().split(" ").map { it.toInt() }
+    var st = StringTokenizer(br.readLine())
+    val n = st.nextToken().toInt()
+    val m = st.nextToken().toInt()
     graph = IntArray(n + 1) { it }
     val sb = StringBuilder()
 
     repeat(m) {
-        br.readLine().split(" ").map { it.toInt() }.let { (o, a, b) ->
-            if (o == 0) {
-                union(a, b)
-            } else {
-                val x = find(a)
-                val y = find(b)
+        st = StringTokenizer(br.readLine())
+        val o = st.nextToken().toInt()
+        val x = st.nextToken().toInt()
+        val y = st.nextToken().toInt()
 
-                sb.append(if(x != y) "NO" else "YES").append("\n")
-            }
+        if (o == 0) {
+            union(x, y)
+        } else {
+            sb.append(if(find(x) != find(y)) "NO" else "YES").append("\n")
         }
     }
 
@@ -23,12 +27,8 @@ fun main() {
 }
 
 private fun union(x: Int, y: Int) {
-    if(x == y) return
-
     val px = find(x)
     val py = find(y)
-
-    if(px == py) return
 
     graph[px] = py
 }
